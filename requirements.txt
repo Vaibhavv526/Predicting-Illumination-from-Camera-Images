@@ -1,0 +1,30 @@
+# Core numerical computing
+numpy
+pandas
+scipy
+
+# Machine Learning
+scikit-learn
+
+# Visualization
+matplotlib
+seaborn
+
+# Deep Learning
+torch
+torchvision
+torchaudio
+
+# Image processing
+Pillow
+opencv-python
+
+# Jupyter
+jupyter
+ipykernel
+
+# Utilities
+tqdm
+
+# Model evaluation / data
+joblib
