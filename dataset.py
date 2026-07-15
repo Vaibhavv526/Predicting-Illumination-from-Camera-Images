@@ -33,17 +33,28 @@ class IlluminationDataset(Dataset):
 
     def __getitem__(self, idx):
         img_id = str(self.df.iloc[idx]['id'])
+
         if not img_id.endswith('.png'):
-            img_id = f"{img_id}.png"
-            
-        img_path = os.path.join(self.img_dir, img_id)
+         img_id = f"{img_id}.png"
+
+        label_to_folder = {
+        0: "dark",
+        1: "normal",
+        2: "bright"
+    }
+
+        label = int(self.df.iloc[idx][self.label_col])
+        class_folder = label_to_folder[label]
+
+        img_path = os.path.join(
+        self.img_dir,
+        class_folder,
+        img_id
+    )
+
         image = Image.open(img_path).convert('RGB')
-        
+
         if self.transform:
             image = self.transform(image)
-            
-        if self.label_col is not None:
-            label = int(self.df.iloc[idx][self.label_col])
-            return image, label
-        else:
-            return image, img_id
+
+        return image, label
