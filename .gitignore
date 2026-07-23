@@ -2,6 +2,8 @@
 myvenv/
 .venv/
 venv/
+.env
+.pytest_cache/
 
 # Python cache
 __pycache__/
@@ -16,3 +18,12 @@ __pycache__/
 # IDE
 .vscode/
 .idea/
+
+# Uploaded Images
+uploads/
+
+# Database
+*.db
+
+# Logs
+*.log
