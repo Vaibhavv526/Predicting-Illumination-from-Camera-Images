@@ -1,3 +1,5 @@
+from app.api.auth import router as auth_router
+
 from app.database.init_db import init_db
 from contextlib import asynccontextmanager
 
@@ -17,6 +19,8 @@ app = FastAPI(
     version=settings.APP_VERSION,
     lifespan=lifespan
 )
+
+app.include_router(auth_router)
 
 
 @app.get("/")
