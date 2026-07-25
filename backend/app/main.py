@@ -33,3 +33,7 @@ def root():
         "message": f"Welcome to {settings.APP_NAME} 🚀",
         "version": settings.APP_VERSION
     }
+
+
+from app.api.predict import router as predict_router
+app.include_router(predict_router)

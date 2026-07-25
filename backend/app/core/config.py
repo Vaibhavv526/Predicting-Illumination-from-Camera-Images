@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
     UPLOAD_DIR: str
-    MODEL_DIR: str
+    MODEL_PATH: str
 
     model_config = SettingsConfigDict(env_file=".env")
 
