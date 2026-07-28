@@ -12,6 +12,7 @@ from app.services.user_service import (
     create_user,
     authenticate_user,
 )
+from app.schemas.verify_otp import VerifyOTPRequest
 
 # for app pasword 
 from app.services.email_service import send_email
@@ -19,7 +20,13 @@ from app.services.email_service import send_email
 # for forgot password endpoint 
 from app.schemas.forgot_password import ForgotPasswordRequest
 
-from app.services.otp_service import save_otp
+from app.services.otp_service import (
+    save_otp,
+    verify_otp,
+    reset_password
+)
+
+from app.schemas.reset_password import ResetPasswordRequest
 
 router = APIRouter(
     prefix="/auth",
@@ -110,3 +117,45 @@ def forgot_password(
 }
 
 
+@router.post("/verify-otp")
+def verify_otp_endpoint(
+    request: VerifyOTPRequest,
+    db: Session = Depends(get_db)
+):
+    is_valid, result = verify_otp(
+        db,
+        request.email,
+        request.otp
+    )
+
+    if not is_valid:
+        raise HTTPException(
+            status_code=400,
+            detail=result
+        )
+
+    return {
+        "message": "OTP verified successfully."
+    }
+
+@router.post("/reset-password")
+def reset_password_endpoint(
+    request: ResetPasswordRequest,
+    db: Session = Depends(get_db)
+):
+    success, message = reset_password(
+        db=db,
+        email=request.email,
+        otp=request.otp,
+        new_password=request.new_password
+    )
+
+    if not success:
+        raise HTTPException(
+            status_code=400,
+            detail=message
+        )
+
+    return {
+        "message": message
+    }
