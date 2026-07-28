@@ -14,6 +14,9 @@ class Settings(BaseSettings):
     UPLOAD_DIR: str
     MODEL_PATH: str
 
+    EMAIL_ADDRESS: str
+    EMAIL_PASSWORD: str
+
     model_config = SettingsConfigDict(env_file=".env")
 
 

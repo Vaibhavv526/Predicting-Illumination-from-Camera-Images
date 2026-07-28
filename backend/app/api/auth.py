@@ -10,7 +10,16 @@ from app.schemas.user import UserCreate, UserResponse
 from app.services.user_service import (
     get_user_by_email,
     create_user,
+    authenticate_user,
 )
+
+# for app pasword 
+from app.services.email_service import send_email
+
+# for forgot password endpoint 
+from app.schemas.forgot_password import ForgotPasswordRequest
+
+from app.services.otp_service import save_otp
 
 router = APIRouter(
     prefix="/auth",
@@ -37,17 +46,12 @@ def register_user(
 
     return create_user(db, user)
 
-from app.schemas.user import UserLogin, Token
 from app.services.user_service import authenticate_user
 from app.auth.jwt_handler import create_access_token
 
 from app.schemas.user import UserCreate, UserResponse, UserLogin, Token
 
-from app.services.user_service import (
-    get_user_by_email,
-    create_user,
-    authenticate_user,
-)
+
 
 @router.post(
     "/login",
@@ -80,5 +84,29 @@ def login_user(
         "access_token": access_token,
         "token_type": "bearer"
     }
+
+@router.post("/forgot-password")
+def forgot_password(
+    request: ForgotPasswordRequest,
+    db: Session = Depends(get_db)
+):
+
+    existing_user = get_user_by_email(db, request.email)
+
+    if not existing_user:
+        raise HTTPException(
+            status_code=404,
+            detail="No account found with this email."
+        )
+    otp = save_otp(db, request.email)
+    send_email(
+    receiver_email=request.email,
+    subject="Password Reset OTP",
+    body=f"Your OTP is: {otp}\n\nThis OTP is valid for 10 minutes."
+)
+
+    return {
+    "message": "OTP generated successfully."
+}
 
 
