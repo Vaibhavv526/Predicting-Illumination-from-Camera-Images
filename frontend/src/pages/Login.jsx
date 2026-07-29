@@ -40,7 +40,7 @@ function Login() {
     console.log("Status:", response.status);
     console.log("Status:", response.status);
     console.log(JSON.stringify(data, null, 2));
-    console.log("Detail:", data.detail);
+    
   };
   return (
     <AuthLayout>
