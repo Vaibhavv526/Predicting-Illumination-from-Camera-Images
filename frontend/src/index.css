@@ -1,0 +1,37 @@
+/* Reset */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Root Elements */
+
+html,
+body,
+#root {
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Global Body */
+
+body {
+    font-family: Inter, system-ui, sans-serif;
+    background-color: #ffffff;
+    color: #1E293B;
+}
+
+/* Links */
+
+a {
+    text-decoration: none;
+}
+
+/* Form Elements */
+
+button,
+input {
+    font: inherit;
+}

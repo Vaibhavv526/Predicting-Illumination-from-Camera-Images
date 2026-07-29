@@ -1,0 +1,33 @@
+.input-group {
+    margin-bottom: 22px;
+}
+
+.input-label {
+    display: block;
+    text-align: left;
+    color: #334155;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    background: #FFFFFF;
+    color: #1E293B;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.input-field::placeholder {
+    color: #94A3B8;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #3B5BDB;
+    box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.15);
+}
