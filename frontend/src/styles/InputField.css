@@ -31,3 +31,21 @@
     border-color: #3B5BDB;
     box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.15);
 }
+.input-wrapper {
+  position: relative;
+}
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.3em;
+
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

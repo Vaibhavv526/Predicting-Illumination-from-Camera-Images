@@ -8,33 +8,43 @@ import PrimaryButton from "../components/PrimaryButton";
 
 function ForgotPassword() {
     const [email, setEmail] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
     const handleForgotPassword = async (e) => {
-        e.preventDefault();
+  e.preventDefault();
 
-        const response = await fetch("http://127.0.0.1:8000/auth/forgot-password", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: email,
-          }),
-        });
+  setLoading(true);
 
-        const data = await response.json();
+  try {
+    const response = await fetch("http://127.0.0.1:8000/auth/forgot-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
+    });
 
-        if (response.ok) {
-          sessionStorage.setItem("reset_email", email);
+    const data = await response.json();
 
-          alert(data.message);
+    if (response.ok) {
+      sessionStorage.setItem("reset_email", email);
 
-          navigate("/verify-otp");
-        } else {
-          alert(data.detail);
-        }
-      };
+      alert(data.message);
+
+      navigate("/verify-otp");
+    } else {
+      alert(data.detail);
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
     
   return (
@@ -56,7 +66,10 @@ function ForgotPassword() {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <PrimaryButton text="Send OTP" />
+          <PrimaryButton
+            text="Send OTP"
+            loading={loading}
+          />
 
           <p className="login-text">
             Remember your password?{" "}
