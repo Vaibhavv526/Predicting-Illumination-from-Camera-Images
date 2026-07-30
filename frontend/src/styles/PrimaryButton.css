@@ -4,7 +4,7 @@
     background: #3B5BDB;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
@@ -12,5 +12,5 @@
 }
 
 .primary-button:hover {
-    background: #2F4FC7;
+    background: #4d99e6;
 }

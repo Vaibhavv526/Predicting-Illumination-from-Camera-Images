@@ -9,41 +9,47 @@ const InputField = forwardRef(({
   value,
   onChange,
   onKeyDown,
+  helperText,
 }, ref) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="input-group">
-      <label className="input-label">
-        {label}
-      </label>
+  <label className="input-label">
+    {label}
+  </label>
 
-      <div className="input-wrapper">
-  <input
-    ref={ref}
-    className="input-field"
-    type={
-      type === "password"
-        ? (showPassword ? "text" : "password")
-        : type
-    }
-    placeholder={placeholder}
-    value={value}
-    onChange={onChange}
-    onKeyDown={onKeyDown}
-  />
+  <div className="input-wrapper">
+    <input
+      ref={ref}
+      className="input-field"
+      type={
+        type === "password"
+          ? (showPassword ? "text" : "password")
+          : type
+      }
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
+    />
 
-  {type === "password" && (
-    <button
-      type="button"
-      className="password-toggle"
-      onClick={() => setShowPassword(!showPassword)}
-    >
-      {showPassword ? <FiEyeOff /> : <FiEye />}
-    </button>
+    {type === "password" && (
+      <button
+        type="button"
+        className="password-toggle"
+        onClick={() => setShowPassword(!showPassword)}
+      >
+        {showPassword ? <FiEyeOff /> : <FiEye />}
+      </button>
+    )}
+  </div>
+
+  {helperText && (
+    <p className="input-helper-text">
+      {helperText}
+    </p>
   )}
 </div>
-      
-    </div>
   );
 });
 

@@ -64,13 +64,13 @@ if (response.ok) {
             Enter your new password below to complete the password reset
             process.
           </p>
-
           <InputField
             label="New Password"
             type="password"
-            placeholder="Enter new password"
+            placeholder="Enter your new password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
+            helperText="ⓘ Use at least 8 characters."
           />
 
           <InputField

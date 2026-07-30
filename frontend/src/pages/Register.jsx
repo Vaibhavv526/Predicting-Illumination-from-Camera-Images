@@ -89,11 +89,12 @@ function Register() {
 
       <InputField
         ref={passwordRef}
-        label="Password"
-        type="password"
-        placeholder="Enter your password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+         label="Password"
+          type="password"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          helperText="ⓘ Use at least 8 characters."
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.preventDefault();
