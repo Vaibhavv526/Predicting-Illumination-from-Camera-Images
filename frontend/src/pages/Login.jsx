@@ -5,6 +5,7 @@ import AuthLayout from "../components/AuthLayout";
 import AuthCard from "../components/AuthCard";
 import InputField from "../components/InputField";
 import PrimaryButton from "../components/PrimaryButton";
+import { login } from "../api/auth";
 
 function Login() {
 
@@ -12,36 +13,34 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const handleLogin = async (e) => {
+
+    const handleLogin = async (e) => {
   e.preventDefault();
 
-    const response = await fetch("http://127.0.0.1:8000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          username: email,
-          password: password,
-        }),
-      });
-    const data = await response.json();
-    if (response.ok) {
-      localStorage.setItem("access_token", data.access_token);
+  try {
+    const data = await login(email, password);
 
-      alert("Login Successful!");
+    localStorage.setItem(
+      "access_token",
+      data.access_token
+    );
 
-      navigate("/dashboard");
-      navigate("/dashboard");
+    alert("Login Successful!");
+
+    navigate("/dashboard");
+
+  } catch (error) {
+
+    if (error.response) {
+      alert(error.response.data.detail);
     } else {
-      alert(data.detail);
+      alert("Unable to connect to the server.");
     }
 
-    console.log("Status:", response.status);
-    console.log("Status:", response.status);
-    console.log(JSON.stringify(data, null, 2));
-    
-  };
+    console.error(error);
+  }
+};
+   
   return (
     <AuthLayout>
       <AuthCard>

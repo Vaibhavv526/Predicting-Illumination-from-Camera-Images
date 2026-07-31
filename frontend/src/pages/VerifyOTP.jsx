@@ -5,6 +5,7 @@ import AuthLayout from "../components/AuthLayout";
 import AuthCard from "../components/AuthCard";
 import InputField from "../components/InputField";
 import PrimaryButton from "../components/PrimaryButton";
+import { verifyOTP } from "../api/auth";
 
 function VerifyOTP() {
   const [otp, setOtp] = useState("");
@@ -13,30 +14,25 @@ function VerifyOTP() {
 
   const email = sessionStorage.getItem("reset_email");
 
-  const handleVerifyOTP = async (e) => {
+ const handleVerifyOTP = async (e) => {
   e.preventDefault();
 
-  const response = await fetch("http://127.0.0.1:8000/auth/verify-otp", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: email,
-      otp: otp,
-    }),
-  });
+  try {
+    const data = await verifyOTP(email, otp);
 
-  const data = await response.json();
-
-  if (response.ok) {
     sessionStorage.setItem("reset_otp", otp);
 
     alert(data.message);
 
     navigate("/reset-password");
-  } else {
-    alert(data.detail);
+  } catch (error) {
+    if (error.response) {
+      alert(error.response.data.detail);
+    } else {
+      alert("Something went wrong. Please try again.");
+    }
+
+    console.error(error);
   }
 };
   return (

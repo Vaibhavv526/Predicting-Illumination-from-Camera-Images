@@ -6,7 +6,12 @@ from fastapi.security import OAuth2PasswordRequestForm
 from app.database.session import get_db
 from app.auth.dependencies import get_current_user
 from app.models.user import User
-from app.schemas.user import UserCreate, UserResponse
+from app.services.user_service import authenticate_user
+from app.services.user_service import authenticate_user
+from app.auth.jwt_handler import create_access_token
+
+
+from app.schemas.user import UserCreate, UserResponse, UserLogin, Token
 from app.services.user_service import (
     get_user_by_email,
     create_user,
@@ -52,12 +57,6 @@ def register_user(
         )
 
     return create_user(db, user)
-
-from app.services.user_service import authenticate_user
-from app.auth.jwt_handler import create_access_token
-
-from app.schemas.user import UserCreate, UserResponse, UserLogin, Token
-
 
 
 @router.post(
@@ -143,6 +142,7 @@ def reset_password_endpoint(
     request: ResetPasswordRequest,
     db: Session = Depends(get_db)
 ):
+
     success, message = reset_password(
         db=db,
         email=request.email,
@@ -159,3 +159,12 @@ def reset_password_endpoint(
     return {
         "message": message
     }
+
+@router.get(
+    "/me",
+    response_model=UserResponse
+)
+def get_my_profile(
+    current_user: User = Depends(get_current_user)
+):
+    return current_user

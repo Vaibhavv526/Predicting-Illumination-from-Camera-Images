@@ -6,6 +6,7 @@ import PrimaryButton from "../components/PrimaryButton";
 import { Link } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { register } from "../api/auth";
 
 function Register() {
   const [fullName, setFullName] = useState("");
@@ -26,28 +27,26 @@ function Register() {
     return;
   }
 
-  const response = await fetch("http://127.0.0.1:8000/auth/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+  try {
+    await register({
       full_name: fullName,
-      email: email,
-      password: password,
-    }),
-  });
+      email,
+      password,
+    });
 
-  const data = await response.json();
-
-  console.log("Status:", response.status);
-  console.log(JSON.stringify(data, null, 2));
-
-  if (response.ok) {
     alert("Registration Successful!");
+
     navigate("/login");
-  } else {
-    alert(data.detail);
+
+  } catch (error) {
+
+    if (error.response) {
+      alert(error.response.data.detail);
+    } else {
+      alert("Unable to connect to the server.");
+    }
+
+    console.error(error);
   }
 };
   return (

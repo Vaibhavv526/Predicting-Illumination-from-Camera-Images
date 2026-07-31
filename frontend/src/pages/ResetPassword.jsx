@@ -5,6 +5,7 @@ import AuthLayout from "../components/AuthLayout";
 import AuthCard from "../components/AuthCard";
 import InputField from "../components/InputField";
 import PrimaryButton from "../components/PrimaryButton";
+import { resetPassword } from "../api/auth";
 
 function ResetPassword() {
   const [newPassword, setNewPassword] = useState("");
@@ -14,44 +15,38 @@ function ResetPassword() {
   const email = sessionStorage.getItem("reset_email");
   const otp = sessionStorage.getItem("reset_otp");
 
- const handleResetPassword = async (e) => {
+const handleResetPassword = async (e) => {
   e.preventDefault();
-
 
   if (newPassword !== confirmPassword) {
     alert("Passwords do not match.");
     return;
   }
 
-  const response = await fetch(
-  "http://127.0.0.1:8000/auth/reset-password",
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: email,
-      otp: otp,
-      new_password: newPassword,
-    }),
+  try {
+    const data = await resetPassword(
+      email,
+      otp,
+      newPassword
+    );
+
+    alert(data.message);
+
+    sessionStorage.removeItem("reset_email");
+    sessionStorage.removeItem("reset_otp");
+
+    navigate("/login");
+
+  } catch (error) {
+
+    if (error.response) {
+      alert(error.response.data.detail);
+    } else {
+      alert("Something went wrong. Please try again.");
+    }
+
+    console.error(error);
   }
-);
-
-const data = await response.json();
-
-
-
-if (response.ok) {
-  alert(data.message);
-
-  sessionStorage.removeItem("reset_email");
-  sessionStorage.removeItem("reset_otp");
-
-  navigate("/login");
-} else {
-  alert(JSON.stringify(data));
-}
 };
 
   return (

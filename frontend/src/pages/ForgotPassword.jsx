@@ -5,6 +5,7 @@ import AuthLayout from "../components/AuthLayout";
 import AuthCard from "../components/AuthCard";
 import InputField from "../components/InputField";
 import PrimaryButton from "../components/PrimaryButton";
+import { forgotPassword } from "../api/auth";
 
 function ForgotPassword() {
     const [email, setEmail] = useState("");
@@ -17,30 +18,21 @@ function ForgotPassword() {
   setLoading(true);
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/auth/forgot-password", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-      }),
-    });
+    const data = await forgotPassword(email);
 
-    const data = await response.json();
+    sessionStorage.setItem("reset_email", email);
 
-    if (response.ok) {
-      sessionStorage.setItem("reset_email", email);
+    alert(data.message);
 
-      alert(data.message);
-
-      navigate("/verify-otp");
-    } else {
-      alert(data.detail);
-    }
+    navigate("/verify-otp");
   } catch (error) {
+    if (error.response) {
+      alert(error.response.data.detail);
+    } else {
+      alert("Something went wrong. Please try again.");
+    }
+
     console.error(error);
-    alert("Something went wrong. Please try again.");
   } finally {
     setLoading(false);
   }
