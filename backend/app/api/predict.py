@@ -9,6 +9,12 @@ from app.models.user import User
 from app.services.prediction_service import save_prediction
 
 from fastapi import Depends
+from app.schemas.prediction import PredictionResponse
+
+from app.services.prediction_service import (
+    save_prediction,
+    get_prediction_history,
+)
 
 router = APIRouter(
     prefix="/predict",
@@ -43,3 +49,19 @@ async def predict(
 
     return result
 
+
+# Building new endpoint to show user history of there prediction in newest first
+@router.get(
+    "/history",
+    response_model=list[PredictionResponse],
+)
+async def prediction_history(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    history = get_prediction_history(
+        db=db,
+        user=current_user,
+    )
+
+    return history

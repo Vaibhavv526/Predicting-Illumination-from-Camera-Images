@@ -22,3 +22,18 @@ export const predictImage = async (imageFile) => {
 
     return response.data;
 };
+
+export const getPredictionHistory = async () => {
+    const token = localStorage.getItem("access_token");
+
+    const response = await axios.get(
+        `${API_BASE_URL}/predict/history`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    return response.data;
+};
