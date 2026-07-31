@@ -24,7 +24,7 @@ function History() {
   return (
     <DashboardLayout sidebar={<Sidebar />}>
       <div className="dashboard-page">
-        <Navbar />
+        <Navbar title="History" />
 
         <PredictionHistory history={predictionHistory} />
       </div>

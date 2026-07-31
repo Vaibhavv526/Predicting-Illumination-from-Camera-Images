@@ -78,19 +78,26 @@
 }
 
 .confidence-container {
-    width: 100%;
-    height: 12px;
-    background: #e5e7eb;
-    border-radius: 999px;
-    overflow: hidden;
-    margin-top: 8px;
+  width: 100%;
+  height: 14px;
+
+  background: #E5E7EB;
+
+  border-radius: 999px;
+  overflow: hidden;
+
+  margin-bottom: 20px;
 }
 
 .confidence-bar {
-    height: 100%;
-    background: #2563eb;
-    border-radius: inherit;
-    transition: width 0.5s ease;
+  height: 100%;
+  width: 0;
+
+  background-color: #2563EB !important;
+
+  border-radius: 999px;
+
+  transition: width 0.6s ease;
 }
 .prediction-badge {
     display: inline-flex;
@@ -119,4 +126,87 @@
 .badge-dark {
     background-color: #dbeafe;
     color: #1e3a8a;
+}
+
+.predict-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+
+  background: #4361EE;
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.predict-button:hover {
+  background: #3651d4;
+}
+
+.prediction-card {
+  margin-top: 30px;
+  padding: 24px;
+
+  background: #FAFBFC;
+
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+}
+
+.confidence-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 18px;
+  margin-bottom: 8px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  color: #374151;
+}
+
+.summary-title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+  color: #111827;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.summary-text {
+  color: #4B5563;
+  line-height: 1.7;
+}
+.file-name {
+  color: #6B7280;
+  font-size: 14px;
+  text-align: center;
+
+  max-width: 320px;
+  word-break: break-word;
+}
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.upload-button,
+.predict-button {
+  flex: 1;
+}
+
+.predict-button:disabled {
+  background: #9CA3AF;
+  cursor: not-allowed;
+  opacity: 0.8;
 }

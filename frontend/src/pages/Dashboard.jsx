@@ -39,7 +39,7 @@ const darkCount = predictionHistory.filter(
   return (
     <DashboardLayout sidebar={<Sidebar />}>
       <div className="dashboard-page">
-        <Navbar />
+        <Navbar title="Dashboard" />
 
         <div className="stats-grid">
           <StatCard

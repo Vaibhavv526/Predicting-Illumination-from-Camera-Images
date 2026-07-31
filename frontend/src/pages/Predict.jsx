@@ -7,7 +7,7 @@ function Predict() {
   return (
     <DashboardLayout sidebar={<Sidebar />}>
       <div className="dashboard-page">
-        <Navbar />
+        <Navbar title="Predict" />
 
         <UploadCard />
       </div>

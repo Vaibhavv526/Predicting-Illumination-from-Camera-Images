@@ -1,10 +1,10 @@
 import "../styles/Navbar.css";
 
-function Navbar() {
+function Navbar({ title }) {
   return (
     <header className="navbar">
       <div className="navbar-title">
-        <h1>Dashboard</h1>
+        <h1>{title}</h1>
       </div>
 
       <div className="navbar-user">

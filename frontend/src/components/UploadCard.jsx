@@ -12,6 +12,8 @@ function UploadCard({ onPredictionComplete }) {
 
     const [predictionResult, setPredictionResult] = useState(null);
 
+    const [isPredicting, setIsPredicting] = useState(false);
+
     // ✅ useEffect goes here
     useEffect(() => {
         if (!selectedImage) return;
@@ -42,13 +44,24 @@ function UploadCard({ onPredictionComplete }) {
         console.log(file);
     };
     const handlePredict = async () => {
-      const result = await predictImage(selectedImage);
-      setPredictionResult(result);
-      if (onPredictionComplete) {
-      onPredictionComplete();
-}
+  if (!selectedImage) return;
 
-    };
+  try {
+    setIsPredicting(true);
+
+    const result = await predictImage(selectedImage);
+
+    setPredictionResult(result);
+
+    if (onPredictionComplete) {
+      onPredictionComplete();
+    }
+  } catch (error) {
+    console.error("Prediction failed:", error);
+  } finally {
+    setIsPredicting(false);
+  }
+};
 
     let summary = "";
 
@@ -114,20 +127,26 @@ if (predictionResult) {
         className="image-preview"
       />
 
-      <p>{selectedImage.name}</p>
+      <p className="file-name">
+        {selectedImage.name}
+      </p>
 
-      <button
-        className="upload-button"
-        onClick={handleChooseImage}
-      >
-        Change Image
-      </button>
-      <button
+      <div className="action-buttons">
+        <button
+          className="upload-button"
+          onClick={handleChooseImage}
+        >
+          Change Image
+        </button>
+
+        <button
           className="predict-button"
           onClick={handlePredict}
+          disabled={isPredicting}
         >
-          Predict
+          {isPredicting ? "Predicting..." : "Predict"}
         </button>
+      </div>
         <input
         type="file"
         ref={fileInputRef}
@@ -174,20 +193,28 @@ if (predictionResult) {
         </span>
     </div>
 
-    <p>
-      <strong>Confidence:</strong>{" "}
-      {predictionResult.confidence}%
-    </p>
-    <div className="confidence-container">
-      <div
-        className="confidence-bar"
-        style={{ width: `${predictionResult.confidence}%` }}
-      ></div>
-    </div>
+    <div className="confidence-header">
+        <span>Confidence</span>
 
-    <h3>Summary</h3>
+        <span>{predictionResult.confidence}%</span>
+      </div>
 
-    <p>{summary}</p>
+      <div className="confidence-container">
+        <div
+          className="confidence-bar"
+          style={{
+            width: `${predictionResult.confidence}%`,
+          }}
+        ></div>
+      </div>
+
+          <h3 className="summary-title">
+            Summary
+          </h3>
+
+          <p className="summary-text">
+            {summary}
+          </p>
   </div>
 )}
     </div>

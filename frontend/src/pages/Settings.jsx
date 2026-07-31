@@ -6,7 +6,7 @@ function Settings() {
   return (
     <DashboardLayout sidebar={<Sidebar />}>
       <div className="dashboard-page">
-        <Navbar />
+        <Navbar title="Settings" />
 
         <div className="settings-container">
           <h2>Settings</h2>
