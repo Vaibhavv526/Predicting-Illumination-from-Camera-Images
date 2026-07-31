@@ -1,6 +1,14 @@
 import "../styles/Sidebar.css";
+import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar() {
+  const navigate = useNavigate();
+
+    const handleLogout = () => {
+      localStorage.removeItem("token");
+      navigate("/login", { replace: true });
+    };
   return (
     <div className="sidebar">
       <div className="sidebar-logo">
@@ -9,24 +17,44 @@ function Sidebar() {
       </div>
 
       <nav className="sidebar-nav">
-        <button className="sidebar-item active">
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            isActive ? "sidebar-item active" : "sidebar-item"
+          }
+        >
           Dashboard
-        </button>
+        </NavLink>
 
-        <button className="sidebar-item">
+        <NavLink
+          to="/predict"
+          className={({ isActive }) =>
+            isActive ? "sidebar-item active" : "sidebar-item"
+          }
+        >
           Predict
-        </button>
+        </NavLink>
 
-        <button className="sidebar-item">
+        <NavLink
+          to="/history"
+          className={({ isActive }) =>
+            isActive ? "sidebar-item active" : "sidebar-item"
+          }
+        >
           History
-        </button>
+        </NavLink>
 
-        <button className="sidebar-item">
+        <NavLink
+          to="/settings"
+          className={({ isActive }) =>
+            isActive ? "sidebar-item active" : "sidebar-item"
+          }
+        >
           Settings
-        </button>
+        </NavLink>
       </nav>
 
-      <button className="sidebar-logout">
+      <button className="sidebar-item" onClick={handleLogout}>
         Logout
       </button>
     </div>

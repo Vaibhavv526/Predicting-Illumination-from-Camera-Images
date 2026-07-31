@@ -18,11 +18,45 @@ function PredictionHistory({ history }) {
         <tr key={item.id}>
           <td>{item.image_name}</td>
 
-          <td>{item.prediction}</td>
+          <td>
+            <span
+                className={`prediction-badge ${item.prediction.toLowerCase()}`}
+            >
+                {item.prediction}
+            </span>
+            </td>
 
-          <td>{item.confidence.toFixed(2)}%</td>
+          <td>
+        <div className="confidence-cell">
+            <div className="confidence-bar">
+            <div
+                className="confidence-fill"
+                style={{ width: `${item.confidence}%` }}
+            ></div>
+            </div>
 
-          <td>{new Date(item.created_at).toLocaleString()}</td>
+            <span>{item.confidence.toFixed(2)}%</span>
+        </div>
+        </td>
+
+          <td>
+            <div className="history-date">
+                <span className="history-day">
+                {new Date(item.created_at).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                })}
+                </span>
+
+                <span className="history-time">
+                {new Date(item.created_at).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                })}
+                </span>
+            </div>
+            </td>
         </tr>
       ))}
     </tbody>

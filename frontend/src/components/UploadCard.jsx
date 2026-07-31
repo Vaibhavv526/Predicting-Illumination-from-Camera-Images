@@ -3,7 +3,7 @@ import "../styles/UploadCard.css";
 
 import { predictImage } from "../api/prediction";
 
-function UploadCard() {
+function UploadCard({ onPredictionComplete }) {
     const fileInputRef = useRef(null);
 
     const [previewUrl, setPreviewUrl] = useState(null);
@@ -44,6 +44,9 @@ function UploadCard() {
     const handlePredict = async () => {
       const result = await predictImage(selectedImage);
       setPredictionResult(result);
+      if (onPredictionComplete) {
+      onPredictionComplete();
+}
 
     };
 

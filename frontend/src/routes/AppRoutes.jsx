@@ -6,6 +6,9 @@ import VerifyOTP from "../pages/VerifyOTP";
 import Dashboard from "../pages/Dashboard";
 import ProtectedRoute from "../components/ProtectedRoute";
 import ResetPassword from "../pages/ResetPassword";
+import Predict from "../pages/Predict";
+import History from "../pages/History";
+import Settings from "../pages/Settings";
 
 function AppRoutes() {
   return (
@@ -19,14 +22,40 @@ function AppRoutes() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/predict"
+          element={
+            <ProtectedRoute>
+              <Predict />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/history"
+          element={
+            <ProtectedRoute>
+              <History />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
+
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/" element={<Navigate to="/register" replace />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/forgot-password"
-                element={<ForgotPassword />}
-            />
-            <Route path="/verify-otp" element={<VerifyOTP />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-otp" element={<VerifyOTP />} />
       </Routes>
     </BrowserRouter>
   );

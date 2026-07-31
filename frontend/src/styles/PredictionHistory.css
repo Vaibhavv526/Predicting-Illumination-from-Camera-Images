@@ -63,3 +63,60 @@
 .history-table tbody tr:last-child td {
   border-bottom: none;
 }
+.prediction-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.prediction-badge.bright {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.prediction-badge.normal {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.prediction-badge.dark {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+.confidence-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.confidence-bar {
+  width: 100px;
+  height: 8px;
+  background-color: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.confidence-fill {
+  height: 100%;
+  background-color: #3b82f6;
+  border-radius: 999px;
+}
+
+.history-date {
+  display: flex;
+  flex-direction: column;
+}
+
+.history-day {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.history-time {
+  font-size: 0.85rem;
+  color: #6b7280;
+}

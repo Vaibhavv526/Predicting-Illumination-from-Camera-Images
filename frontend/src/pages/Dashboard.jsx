@@ -5,24 +5,37 @@ import StatCard from "../components/StatCard";
 import UploadCard from "../components/UploadCard";
 import { useEffect, useState } from "react";
 import { getPredictionHistory } from "../api/prediction";
-import PredictionHistory from "../components/PredictionHistory";
+import PredictionHistory from "../components/PredictionHistory.jsx";
 
 function Dashboard() {
   const [predictionHistory, setPredictionHistory] = useState([]);
-  useEffect(() => {
   const fetchHistory = async () => {
     try {
-      const history = await getPredictionHistory();
+        const history = await getPredictionHistory();
 
-      setPredictionHistory(history);
+        setPredictionHistory(history);
     } catch (error) {
-      console.error("Failed to fetch prediction history:", error);
+        console.error("Failed to fetch prediction history:", error);
     }
-  };
+};
 
-  fetchHistory();
+useEffect(() => {
+    fetchHistory();
 }, []);
 console.log(predictionHistory);
+const totalPredictions = predictionHistory.length;
+
+const brightCount = predictionHistory.filter(
+  (item) => item.prediction === "Bright"
+).length;
+
+const normalCount = predictionHistory.filter(
+  (item) => item.prediction === "Normal"
+).length;
+
+const darkCount = predictionHistory.filter(
+  (item) => item.prediction === "Dark"
+).length;
   return (
     <DashboardLayout sidebar={<Sidebar />}>
       <div className="dashboard-page">
@@ -31,26 +44,26 @@ console.log(predictionHistory);
         <div className="stats-grid">
           <StatCard
             title="Total Predictions"
-            value="248"
+            value={totalPredictions}
           />
 
           <StatCard
             title="Bright Images"
-            value="92"
+            value={brightCount}
           />
 
           <StatCard
             title="Normal Images"
-            value="108"
+            value={normalCount}
           />
 
           <StatCard
             title="Dark Images"
-            value="48"
+            value={darkCount}
           />
         </div>
 
-        <UploadCard />
+        
           <PredictionHistory history={predictionHistory} />
       </div>
     </DashboardLayout>
