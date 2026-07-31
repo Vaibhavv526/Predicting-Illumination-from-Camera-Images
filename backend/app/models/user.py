@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.sql import func
+from sqlalchemy.orm import relationship
 
 from app.database.base import Base
 
@@ -18,3 +19,9 @@ class User(Base):
     role = Column(String, default="user")
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    predictions = relationship(
+    "Prediction",
+    back_populates="user",
+    cascade="all, delete-orphan"
+)

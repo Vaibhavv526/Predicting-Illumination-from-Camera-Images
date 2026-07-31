@@ -4,7 +4,7 @@ from app.database.session import engine
 # Import all models here
 from app.models.user import User
 from app.models.password_reset_otp import PasswordResetOTP
-
+from app.models.prediction import Prediction
 
 def init_db():
     Base.metadata.create_all(bind=engine)
