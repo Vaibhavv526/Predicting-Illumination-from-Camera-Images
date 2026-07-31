@@ -2,29 +2,42 @@ import { useEffect, useRef, useState } from "react";
 import "../styles/UploadCard.css";
 
 function UploadCard() {
-  const fileInputRef = useRef(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
+    const fileInputRef = useRef(null);
 
-  const [selectedImage, setSelectedImage] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState(null);
 
-  const previewUrl = selectedImage
-    ? URL.createObjectURL(selectedImage)
-    : null;
+    const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleChooseImage = () => {
-    fileInputRef.current.click();
-  };
+    // ✅ useEffect goes here
+    useEffect(() => {
+        if (!selectedImage) return;
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
+        const objectUrl = URL.createObjectURL(selectedImage);
 
-    if (!file) return;
+        setPreviewUrl(objectUrl);
 
-    setSelectedImage(file);
+        return () => {
+            URL.revokeObjectURL(objectUrl);
+        };
+    }, [selectedImage]);
 
-    console.log(file);
-  };
-  return (
+    // ✅ Normal function
+    const handleChooseImage = () => {
+        fileInputRef.current.click();
+    };
+
+    // ✅ Normal function
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+
+        if (!file) return;
+
+        setSelectedImage(file);
+
+        console.log(file);
+    };
+
+    return (
     <div className="upload-card">
       <h2>Upload Image</h2>
 
