@@ -1,6 +1,14 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException
 
 from app.ml.predictor import predict_image
+from sqlalchemy.orm import Session
+
+from app.database.session import get_db
+from app.auth.dependencies import get_current_user
+from app.models.user import User
+from app.services.prediction_service import save_prediction
+
+from fastapi import Depends
 
 router = APIRouter(
     prefix="/predict",
@@ -9,7 +17,11 @@ router = APIRouter(
 
 
 @router.post("/")
-async def predict(file: UploadFile = File(...)):
+async def predict(
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Predict illumination from an uploaded image.
     """
@@ -21,5 +33,13 @@ async def predict(file: UploadFile = File(...)):
         )
 
     result = predict_image(file.file)
+    save_prediction(
+    db=db,
+    user=current_user,
+    image_name=file.filename,
+    prediction=result["prediction"],
+    confidence=result["confidence"],
+)
 
     return result
+
