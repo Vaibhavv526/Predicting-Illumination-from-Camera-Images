@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import "../styles/UploadCard.css";
 
+import { predictImage } from "../api/prediction";
+
 function UploadCard() {
     const fileInputRef = useRef(null);
 
@@ -36,6 +38,11 @@ function UploadCard() {
 
         console.log(file);
     };
+    const handlePredict = async () => {
+      const result = await predictImage(selectedImage);
+      console.log(result);
+
+    };
 
     return (
     <div className="upload-card">
@@ -63,8 +70,22 @@ function UploadCard() {
       >
         Change Image
       </button>
+      <button
+          className="predict-button"
+          onClick={handlePredict}
+        >
+          Predict
+        </button>
+        <input
+        type="file"
+        ref={fileInputRef}
+        accept="image/*"
+        hidden
+        onChange={handleImageChange}
+      />
     </div>
   ) : (
+    
     <div className="upload-area">
       <p>Drag & Drop your image here</p>
 
@@ -85,6 +106,7 @@ function UploadCard() {
         Choose Image
       </button>
     </div>
+    
   )
 }
     </div>
