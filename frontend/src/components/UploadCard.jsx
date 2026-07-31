@@ -10,6 +10,8 @@ function UploadCard() {
 
     const [selectedImage, setSelectedImage] = useState(null);
 
+    const [predictionResult, setPredictionResult] = useState(null);
+
     // ✅ useEffect goes here
     useEffect(() => {
         if (!selectedImage) return;
@@ -35,14 +37,61 @@ function UploadCard() {
         if (!file) return;
 
         setSelectedImage(file);
+        setPredictionResult(null);
 
         console.log(file);
     };
     const handlePredict = async () => {
       const result = await predictImage(selectedImage);
-      console.log(result);
+      setPredictionResult(result);
 
     };
+
+    let summary = "";
+
+if (predictionResult) {
+    switch (predictionResult.prediction) {
+        case "Bright":
+            summary =
+                "The model predicts that the uploaded image was captured under bright lighting conditions.";
+            break;
+
+        case "Normal":
+            summary =
+                "The model predicts that the uploaded image was captured under balanced lighting conditions.";
+            break;
+
+        case "Dark":
+            summary =
+                "The model predicts that the uploaded image was captured under low-light conditions.";
+            break;
+
+        default:
+            summary = "No prediction available.";
+    }
+}
+
+let badgeClass = "";
+let badgeIcon = "";
+
+if (predictionResult) {
+    switch (predictionResult.prediction) {
+        case "Bright":
+            badgeClass = "badge-bright";
+            badgeIcon = "🌞";
+            break;
+
+        case "Normal":
+            badgeClass = "badge-normal";
+            badgeIcon = "🌤️";
+            break;
+
+        case "Dark":
+            badgeClass = "badge-dark";
+            badgeIcon = "🌙";
+            break;
+    }
+}
 
     return (
     <div className="upload-card">
@@ -109,6 +158,35 @@ function UploadCard() {
     
   )
 }
+{predictionResult && ( // prediction-card
+  <div className="prediction-card">
+
+    <h2>Illumination Analysis</h2>
+
+    <div className={`prediction-badge ${badgeClass}`}>
+        <span>{badgeIcon}</span>
+
+        <span>
+            {predictionResult.prediction} Environment
+        </span>
+    </div>
+
+    <p>
+      <strong>Confidence:</strong>{" "}
+      {predictionResult.confidence}%
+    </p>
+    <div className="confidence-container">
+      <div
+        className="confidence-bar"
+        style={{ width: `${predictionResult.confidence}%` }}
+      ></div>
+    </div>
+
+    <h3>Summary</h3>
+
+    <p>{summary}</p>
+  </div>
+)}
     </div>
   );
 }
