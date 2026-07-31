@@ -7,8 +7,9 @@ from app.database.session import get_db
 from app.auth.dependencies import get_current_user
 from app.models.user import User
 from app.services.user_service import authenticate_user
-from app.services.user_service import authenticate_user
 from app.auth.jwt_handler import create_access_token
+from app.schemas.change_password import ChangePasswordRequest
+from app.services.user_service import change_password
 
 
 from app.schemas.user import UserCreate, UserResponse, UserLogin, Token
@@ -168,3 +169,27 @@ def get_my_profile(
     current_user: User = Depends(get_current_user)
 ):
     return current_user
+
+
+@router.put("/change-password")
+def change_password_endpoint(
+    request: ChangePasswordRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    success, message = change_password(
+        db=db,
+        user=current_user,
+        current_password=request.current_password,
+        new_password=request.new_password,
+    )
+
+    if not success:
+        raise HTTPException(
+            status_code=400,
+            detail=message,
+        )
+
+    return {
+        "message": message,
+    }

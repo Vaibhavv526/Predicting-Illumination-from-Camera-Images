@@ -5,6 +5,7 @@ import "../styles/Settings.css";
 import { useEffect, useState } from "react";
 import { getProfile } from "../api/user";
 import { useNavigate } from "react-router-dom";
+import ChangePasswordModal from "../components/ChangePasswordModal";
 
 function Settings() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ function Settings() {
   const [loading, setLoading] = useState(true);
 
   const [user, setUser] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
 
   const loadProfile = async () => {
@@ -89,7 +91,10 @@ if (loading) {
 
     <div className="settings-item">
       <span>Password</span>
-      <button className="settings-button">
+      <button
+        className="settings-button"
+        onClick={() => setIsModalOpen(true)}
+      >
         Change Password
       </button>
     </div>
@@ -114,6 +119,10 @@ if (loading) {
   </div>
 </div>
       </div>
+      <ChangePasswordModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </DashboardLayout>
   );
 }

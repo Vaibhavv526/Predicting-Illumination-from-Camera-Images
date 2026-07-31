@@ -2,7 +2,10 @@ from sqlalchemy.orm import Session
 
 from app.models.user import User
 from app.schemas.user import UserCreate
-from app.auth.security import hash_password
+from app.auth.security import (
+    hash_password,
+    verify_password,
+)
 
 
 def get_user_by_email(db: Session, email: str):
@@ -24,8 +27,6 @@ def create_user(db: Session, user: UserCreate):
 
     return new_user
 
-from app.auth.security import verify_password
-
 
 def authenticate_user(db: Session, email: str, password: str):
     user = get_user_by_email(db, email)
@@ -37,3 +38,22 @@ def authenticate_user(db: Session, email: str, password: str):
         return None
 
     return user
+
+def change_password(
+    db,
+    user,
+    current_password,
+    new_password
+):
+    if not verify_password(
+        current_password,
+        user.hashed_password,
+    ):
+        return False, "Current password is incorrect."
+
+    user.hashed_password = hash_password(new_password)
+
+    db.commit()
+    db.refresh(user)
+
+    return True, "Password changed successfully."
