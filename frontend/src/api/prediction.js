@@ -1,16 +1,24 @@
 import axios from "axios";
+
 const API_BASE_URL = "http://127.0.0.1:8000";
 
 export const predictImage = async (imageFile) => {
     const formData = new FormData();
 
-    formData.append("file", imageFile); // now we have a formdata empty folder in which we can append the data
+    formData.append("file", imageFile);
 
-    const response = await axios.post( // Sending the Request with Axios
-    `${API_BASE_URL}/predict/`,
-    formData
-);
+    // Get the JWT token from localStorage
+    const token = localStorage.getItem("access_token");
 
-return response.data;
+    const response = await axios.post(
+        `${API_BASE_URL}/predict/`,
+        formData,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
 
+    return response.data;
 };
