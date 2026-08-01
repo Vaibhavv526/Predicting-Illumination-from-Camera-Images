@@ -1,27 +1,29 @@
-fastapi
-uvicorn
-sqlalchemy
-alembic
+fastapi==0.116.1
+uvicorn==0.35.0
 
-psycopg2-binary
+sqlalchemy==2.0.42
+alembic==1.16.4
 
-python-dotenv
-pydantic
-pydantic-settings
+psycopg2-binary==2.9.10
 
-python-jose
-passlib
-bcrypt
+python-dotenv==1.1.1
+pydantic==2.11.7
+pydantic-settings==2.10.1
 
-python-multipart
-email-validator
+python-jose==3.5.0
 
-Pillow
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
 
-torch
-torchvision
+python-multipart==0.0.20
+email-validator==2.3.0
 
-numpy
-opencv-python
+Pillow==11.3.0
 
-requests
+torch==2.8.0
+torchvision==0.23.0
+
+numpy==2.3.2
+opencv-python==4.12.0.88
+
+requests==2.32.5
