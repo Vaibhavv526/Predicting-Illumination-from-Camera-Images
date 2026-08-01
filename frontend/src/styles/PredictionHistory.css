@@ -93,17 +93,23 @@
 }
 
 .confidence-bar {
-  width: 100px;
-  height: 8px;
-  background-color: #e5e7eb;
-  border-radius: 999px;
-  overflow: hidden;
+    width: 120px;
+    height: 10px;
+
+    background: #DBEAFE;      /* Light blue track */
+
+    border-radius: 999px;
+    overflow: hidden;
 }
 
 .confidence-fill {
-  height: 100%;
-  background-color: #3b82f6;
-  border-radius: 999px;
+    height: 100%;
+
+    background: #FFFFFF;      /* White filled portion */
+
+    border-radius: inherit;
+
+    transition: width 0.4s ease;
 }
 
 .history-date {

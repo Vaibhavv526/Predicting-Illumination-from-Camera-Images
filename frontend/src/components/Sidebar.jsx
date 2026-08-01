@@ -13,7 +13,7 @@ function Sidebar() {
     <div className="sidebar">
       <div className="sidebar-logo">
         
-        <h2>DayNightNet</h2>
+        <h2>BrightDarkEnv</h2>
       </div>
 
       <nav className="sidebar-nav">
