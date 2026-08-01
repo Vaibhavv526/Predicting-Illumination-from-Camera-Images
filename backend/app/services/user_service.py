@@ -13,17 +13,26 @@ def get_user_by_email(db: Session, email: str):
 
 
 def create_user(db: Session, user: UserCreate):
+    print("STEP 1")
+
     hashed_pwd = hash_password(user.password)
+    print("STEP 2")
 
     new_user = User(
         full_name=user.full_name,
         email=user.email,
         hashed_password=hashed_pwd,
     )
+    print("STEP 3")
 
     db.add(new_user)
+    print("STEP 4")
+
     db.commit()
+    print("STEP 5")
+
     db.refresh(new_user)
+    print("STEP 6")
 
     return new_user
 
