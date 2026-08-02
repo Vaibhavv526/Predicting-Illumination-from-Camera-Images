@@ -1,0 +1,48 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual Environment
+myvenv/
+venv/
+.venv/
+
+# Git
+.git
+.gitignore
+
+# Environment Variables
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python Testing
+.pytest_cache/
+
+# Build
+build/
+dist/
+
+# Logs
+*.log
+
+# Model Training Files
+notebooks/
+training/
+experiments/
+runs/
+
+# Temporary Files
+*.tmp
+
+# Docker
+Dockerfile
+.dockerignore
