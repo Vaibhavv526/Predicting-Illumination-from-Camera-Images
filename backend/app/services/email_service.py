@@ -1,24 +1,16 @@
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import resend
 
 from app.core.config import settings
 
+resend.api_key = settings.RESEND_API_KEY
+
+
 def send_email(receiver_email: str, subject: str, body: str):
-    message = MIMEMultipart()
-
-    message["From"] = settings.EMAIL_ADDRESS
-    message["To"] = receiver_email
-    message["Subject"] = subject
-
-    message.attach(MIMEText(body, "plain"))
-
-    with smtplib.SMTP("smtp.gmail.com", 587) as server:
-        server.starttls()
-
-        server.login(
-            settings.EMAIL_ADDRESS,
-            settings.EMAIL_PASSWORD
-        )
-
-        server.send_message(message)
+    resend.Emails.send(
+        {
+            "from": "onboarding@resend.dev",
+            "to": receiver_email,
+            "subject": subject,
+            "text": body,
+        }
+    )

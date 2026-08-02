@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     EMAIL_ADDRESS: str
     EMAIL_PASSWORD: str
 
+    RESEND_API_KEY: str
+
     model_config = SettingsConfigDict(env_file=".env")
 
 
