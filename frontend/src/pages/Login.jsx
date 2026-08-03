@@ -9,10 +9,29 @@ import { login } from "../api/auth";
 
 function Login() {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+const [copyMessage, setCopyMessage] = useState("");
+
+const demoEmail = "demo@gmail.com";
+const demoPassword = "Demo@123";
 
   const navigate = useNavigate();
+
+  const copyToClipboard = async (text, label) => {
+  try {
+    await navigator.clipboard.writeText(text);
+
+    setCopyMessage(`${label} copied to clipboard!`);
+
+    setTimeout(() => {
+      setCopyMessage("");
+    }, 2000);
+
+  } catch (err) {
+    console.error(err);
+  }
+};
 
     const handleLogin = async (e) => {
   e.preventDefault();
@@ -74,6 +93,45 @@ function Login() {
     </p>
 
     <PrimaryButton text="Login" />
+    <div className="demo-account-card">
+  <h3>🔑 Demo Account</h3>
+
+  <p className="demo-description">
+    Want to explore the application without creating a new account?
+  </p>
+
+  <div className="demo-credential">
+    <strong>📧 Email</strong>
+    <span>{demoEmail}</span>
+    <button
+      type="button"
+      onClick={() => copyToClipboard(demoEmail, "Email")}
+    >
+      📋 Copy Email
+    </button>
+  </div>
+
+  <div className="demo-credential">
+    <strong>🔒 Password</strong>
+    <span>{demoPassword}</span>
+    <button
+      type="button"
+      onClick={() => copyToClipboard(demoPassword, "Password")}
+    >
+      📋 Copy Password
+    </button>
+  </div>
+
+  <p className="demo-note">
+  💡 Use these credentials to quickly explore the application.
+    </p>
+
+    {copyMessage && (
+      <p className="copy-message">
+        ✅ {copyMessage}
+      </p>
+    )}
+</div>
 
     <p className="login-text">
       Don't have an account?{" "}

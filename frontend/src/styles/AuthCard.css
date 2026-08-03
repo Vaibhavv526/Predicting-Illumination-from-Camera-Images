@@ -46,3 +46,66 @@
     margin-bottom: 20px;
     font-size: 14px;
 }
+
+.demo-account-card {
+    margin-top: 24px;
+    padding: 18px;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    background: #F8FAFC;
+}
+
+.demo-account-card h3 {
+    margin: 0 0 10px;
+    color: #1E293B;
+    font-size: 18px;
+}
+
+.demo-description {
+    color: #64748B;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.demo-credential {
+    margin-bottom: 16px;
+}
+
+.demo-credential strong {
+    display: block;
+    margin-bottom: 6px;
+    color: #334155;
+}
+
+.demo-credential span {
+    display: block;
+    padding: 10px 12px;
+    background: white;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #0F172A;
+    margin-bottom: 8px;
+    word-break: break-all;
+}
+
+.demo-credential button {
+    background: #2563EB;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.demo-credential button:hover {
+    background: #1D4ED8;
+}
+
+.demo-note {
+    margin-top: 10px;
+    color: #64748B;
+    font-size: 13px;
+}
