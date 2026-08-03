@@ -8,7 +8,6 @@ import PrimaryButton from "../components/PrimaryButton";
 import { login } from "../api/auth";
 
 function Login() {
-
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 const [copyMessage, setCopyMessage] = useState("");
@@ -16,9 +15,9 @@ const [copyMessage, setCopyMessage] = useState("");
 const demoEmail = "demo@gmail.com";
 const demoPassword = "Demo@123";
 
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
-  const copyToClipboard = async (text, label) => {
+const copyToClipboard = async (text, label) => {
   try {
     await navigator.clipboard.writeText(text);
 
@@ -32,7 +31,6 @@ const demoPassword = "Demo@123";
     console.error(err);
   }
 };
-
     const handleLogin = async (e) => {
   e.preventDefault();
 
@@ -134,9 +132,9 @@ const demoPassword = "Demo@123";
 </div>
 
     <p className="login-text">
-      Don't have an account?{" "}
+    
       <Link to="/register" className="login-link">
-        Register
+      
       </Link>
     </p>
   </form>
