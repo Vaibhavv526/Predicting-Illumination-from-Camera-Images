@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_BASE_URL =
-  "https://predicting-illumination-from-camera-images-production.up.railway.app";
+  "https://predicting-illumination-from-camera.onrender.com";
 
 export const predictImage = async (imageFile) => {
     const formData = new FormData();
